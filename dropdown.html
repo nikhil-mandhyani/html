@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* Style for the input field */
+        input {
+            border: 1px solid #ccc; /* Add your desired border style */
+            padding: 5px;
+            font-size: 16px;
+        }
+
+        /* Style for the input field when it is focused */
+        input:focus {
+            outline: none; /* Remove the default focus outline */
+        }
+    </style>
+</head>
+<body>
+    <input type="text" name="text" id="textBox" oninput="autocomplete1()">
+    <div id="autocomplete-list"></div>
+    <script>
+        var list_of_Items = ["Apple", "Mango", "Orange", "Tomato", "Ice cream"];
+
+        function autocomplete1() {
+            var input = document.getElementById('textBox');
+            var inputValue = input.value.toLowerCase();
+            var autocompleteList = document.getElementById('autocomplete-list');
+            autocompleteList.innerHTML = '';
+
+            // Filter items that start with the input value
+            var filteredItems = list_of_Items.filter(function(item) {
+                return item.toLowerCase().startsWith(inputValue);
+            });
+
+            // Display filtered items in the autocomplete list
+            filteredItems.forEach(function(item) {
+                var suggestion = document.createElement('div');
+                suggestion.textContent = item;
+                suggestion.addEventListener('click', function() {
+                    input.value = item;
+                    autocompleteList.innerHTML = '';
+                });
+                autocompleteList.appendChild(suggestion);
+            });
+        }
+    </script>
+</body>
+</html>
